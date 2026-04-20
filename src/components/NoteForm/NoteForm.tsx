@@ -19,13 +19,13 @@ const initialValues: NoteFormValues = {
 
 const NoteFormShema = Yup.object().shape({
     title: Yup.string()
-        .min(3, "Title must be at least 2 characters")
+        .min(3, "Title must be at least 3 characters")
         .max(50, "Title is too long")
         .required("Title is required"),
     content: Yup.string()
-        .max(500, "Text is too long")
-        .required("Content is required"),
+        .max(500, "Text is too long"),
     tag: Yup.string()
+        .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"], "Invalid tag")
         .required("Tag is required"),
     
 })
@@ -60,7 +60,7 @@ export default function NoteForm({onClose}: NoteFormProps) {
                 <div className={css.formGroup}>
                     <label htmlFor={`${fieldId} - title`}>Title</label>
                     <Field id={`${fieldId} - title`} type="text" name="title" className={css.input} />
-                    <ErrorMessage name="title" className={css.error} />
+                    <ErrorMessage component="span" name="title" className={css.error} />
                 </div>
 
                 <div className={css.formGroup}>
@@ -71,7 +71,7 @@ export default function NoteForm({onClose}: NoteFormProps) {
                         rows={8}
                         className={css.textarea}
                     />
-                    <ErrorMessage name="content" className={css.error} />
+                    <ErrorMessage component="span" name="content" className={css.error} />
                 </div>
 
                 <div className={css.formGroup}>
@@ -83,7 +83,7 @@ export default function NoteForm({onClose}: NoteFormProps) {
                         <option value="Meeting">Meeting</option>
                         <option value="Shopping">Shopping</option>
                     </Field>
-                    <ErrorMessage name="tag" className={css.error} />
+                    <ErrorMessage component="span" name="tag" className={css.error} />
                 </div>
 
                 <div className={css.actions}>

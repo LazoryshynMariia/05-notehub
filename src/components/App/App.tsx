@@ -22,7 +22,10 @@ export default function App() {
     setIsModalOpen(false);
   };
 
-  const handleSearch = useDebouncedCallback(setSearchQuery, 300);
+ const handleSearch = useDebouncedCallback((nextSearchQuery: string) => {
+  setSearchQuery(nextSearchQuery);
+  setCurrentPage(1);
+}, 300);
   
   const { data, isLoading } = useQuery({
     queryKey: ['notes', searchQuery, currentPage],
